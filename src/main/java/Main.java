@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         server.createContext("/hello", new GreetingPageHandler());
         server.createContext("/list", new ListNamesHandler());
@@ -19,6 +19,7 @@ public class Main {
 
         server.setExecutor(Executors.newCachedThreadPool());
         server.start();
+        System.out.println("HTTP server started at port 8000");
     }
 
         static class NotImplementedHandler implements HttpHandler {
