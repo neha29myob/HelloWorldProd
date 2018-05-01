@@ -10,7 +10,7 @@ before_install:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 install:
-- docker build -t hello-world-v1 .
+- docker build -t neha-hello-world .
 deploy:
 - provider: s3
   access_key_id: "$AWS_ACCESS_KEY"
