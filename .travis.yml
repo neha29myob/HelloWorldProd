@@ -1,49 +1,43 @@
-
-
 sudo: required
-
 language: java
+env:
+  global:
+  - secure: DkXmaav9nOsK+ZuTIC6CYLykkeWVHf7p1aucQD+DTHcFIISwNGv2Q6N04hHRR09JjG4dNyI8V2ZCc7IBFWqrFOw2fIFmRjasZ2M0WjdpCDjatYR8jO0UGG6mAnGu0vAvhS6DtVW5qfRUQSq5fOJXOllO+y1DZi4gYcKUGGrO7A3dtW6eZza5aRvJPypkC2nuMJ5Hm1u7E7UeTmW3pP5YdHY4FYYUClkiXHMgFK5XUc4jLk51dzgwax/YN1dXwApRChb7S3VG5mRcEqXAXp4Gfngz8JP5q6N1/JUBy10jBCliXMe5C7qvNJv07d0L7rDBTnJqdDpX9Gj36n0Sbg+EAqGLzx6N5B56pOfOHe5Ds99lk8woyKaPT9FmhELxBvy0fpUAOCFMiSo/NntVQ9dS+1DhkaQf1KXG8VYMAb/7rIvAXacsGhaNwJeygibqrZZMfL1gWiBDVMKhjOjcr01wfGtsSut0w3AJw4e9CuV4QxvigY8JmzsDQdLqf4nrP0+D50ewLUa4DctiJFkqsJsDQcbDOPwhOhvbM1GMaz0N1yx60evG0Zusp0O1/a4h4NsUdA93XvR8aKlQZ3G8001q3EayZ3EvPx4ZWC052vFLaqwVkc3RnyPfbQbhmGOwR6RdcIZqt5MrGrQyDe6hxFAMW7HWoE9gU86GAaPoSxK/qlU=
+  - secure: MYjeoiBoUb0C2hoFOnX0yO7BmApffvwf2ssvzQn/YNZqMpFNWccdikn4R81BEyIES/PZCfa40v3DxNqD/qHwLYNSpoFv8cZg4OCgtwsdQ7vD6SjKrbBCITV1HisZP5XuOtPtc5niV3znblYQiVPm44W3KW4OtP0rd3dSDBPh0yCs5nfzxZ+yfdbav6PeIge1veH8271gSgXmEHwye1J46vXlxKOh1cnlfpjBZpXogCTk6a7g0cIPPdOdgHWgdrk8FAXv7jzuVq5D/8YMZwvmsYOS6MI3pv1WYvBhiZpKthin1wbfkXOOzNWT6rPEsTeamHhc6qW9pfyLJbvtV9JxI1vzRGZ9Igh9yOpOvhVdOvDaH6ljlniw7KJfx6eZDF9ipLL7ezNmCSuG+75WPbaF49VkPAQXoQiRJSD5W/ZYwvNwB5z+XPyF7A3Bqh/AFHHgYRVexp5JSMoQseHqxGHgorHOsm8vD7WhaWjTbB5EZOlx7SPkxjqzKxiEgmnZfm/ShB6oReEXMFljjGOGpYuhnq2qfmtwdtCbGOLdhJ2eRhPXRFHGxrUjIYthKAfQa3Ui5QZkJOEekZU3KgpeyRw34Mwosm/LnkOND20UKzoy/G7OBAHNAiQBwYh80LIJXEC4Kzho0D8E2y8gzQ9EXowNu7gR/q/pOHB+Rr1oFnG/1Dw=
 
 services: docker
-
 before_install:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
-
 install:
 - docker build -t hello-world-v1 .
-
 deploy:
 - provider: s3
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
   local_dir: dpl_cd_upload
   skip_cleanup: true
-  on: &2
+  on: 
   bucket: fma-neha-hello-world
   region: ap-southeast-2
-
 - provider: codedeploy
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
   bucket: fma-neha-hello-world
   key: code-deploy-scripts.zip
   bundle_type: zip
   application: helloWorld
   deployment_group: fma-neha-travis
   region: ap-southeast-2
-  on: *2
-
+  on: 
 script:
-
-  - $(aws ecr get-login --region ap-southeast-2)
-  - docker tag neha-hello-world:latest 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
-  - docker push 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
-
-  - echo "aws ecr get-login --no-include-email --region ap-southeast-2 && docker pull 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest" > get_docker_image.sh &&
-      echo "docker run  -p 8000:8000 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world" > run_image.sh &&
-      zip -r code-deploy-scripts . -i get_docker_image.sh run_image.sh appspec.yml
-
-  - mkdir -p dpl_cd_upload
-
-  - mv code-deploy-scripts.zip dpl_cd_upload/code-deploy-scripts.zip
+- "$(aws ecr get-login --no-include-email --region ap-southeast-2)"
+- docker tag neha-hello-world:latest 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
+- docker push 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
+- echo "aws ecr get-login --no-include-email --region ap-southeast-2 && docker pull
+  451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest" > get_docker_image.sh
+  && echo "docker run  -p 8000:8000 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world"
+  > run_image.sh && zip -r code-deploy-scripts . -i get_docker_image.sh run_image.sh
+  appspec.yml
+- mkdir -p dpl_cd_upload
+- mv code-deploy-scripts.zip dpl_cd_upload/code-deploy-scripts.zip
