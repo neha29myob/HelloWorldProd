@@ -1,0 +1,11 @@
+on: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/ec2-user/hello-world-production
+
+hooks:
+  AfterInstall:
+    - location: get_docker_image.sh
+      timeout: 300
+      runas: root

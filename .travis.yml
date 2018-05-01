@@ -1,0 +1,49 @@
+
+
+sudo: required
+
+language: java
+
+services: docker
+
+before_install:
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+
+install:
+- docker build -t hello-world-v1 .
+
+deploy:
+- provider: s3
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  local_dir: dpl_cd_upload
+  skip_cleanup: true
+  on: &2
+  bucket: fma-neha-hello-world
+  region: ap-southeast-2
+
+- provider: codedeploy
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: fma-neha-hello-world
+  key: code-deploy-scripts.zip
+  bundle_type: zip
+  application: helloWorld
+  deployment_group: fma-neha-travis
+  region: ap-southeast-2
+  on: *2
+
+script:
+
+  - $(aws ecr get-login --region ap-southeast-2)
+  - docker tag neha-hello-world:latest 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
+  - docker push 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
+
+  - echo "aws ecr get-login --no-include-email --region ap-southeast-2 && docker pull 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest" > get_docker_image.sh &&
+      echo "docker run  -p 8000:8000 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world" > run_image.sh &&
+      zip -r code-deploy-scripts . -i get_docker_image.sh run_image.sh appspec.yml
+
+  - mkdir -p dpl_cd_upload
+
+  - mv code-deploy-scripts.zip dpl_cd_upload/code-deploy-scripts.zip
