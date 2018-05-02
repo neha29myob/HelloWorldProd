@@ -32,13 +32,14 @@ deploy:
   region: ap-southeast-2
   on: 
 script:
-- "$(aws ecr get-login --no-include-email --region ap-southeast-2)"
+- $(aws ecr get-login --no-include-email --region ap-southeast-2)
 - docker tag neha-hello-world:latest 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
 - docker push 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
 
-- echo "aws ecr get-login --no-include-email --region ap-southeast-2 && docker pull 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest" > pull_image.sh
 - zip -r code-deploy-scripts . -i pull_image.sh appspec.yml
 - mkdir -p dpl_cd_upload
 - mv code-deploy-scripts.zip dpl_cd_upload/code-deploy-scripts.zip
 
-#echo "docker run -p -8000:8000 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world" > run_image.sh
+
+#echo "aws ecr get-login --no-include-email --region ap-southeast-2 && docker pull 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest" > pull_image.sh
+# echo "docker run -p -8000:8000 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world" > run_image.sh
