@@ -19,7 +19,7 @@ public class Main {
 
         server.setExecutor(Executors.newCachedThreadPool());
         server.start();
-        System.out.println("HTTP server started at port 8000");
+        System.out.println("Server started at port 8000");
     }
 
         static class NotImplementedHandler implements HttpHandler {
