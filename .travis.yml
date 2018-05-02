@@ -40,5 +40,5 @@ script:
   && echo "docker run -p -8000:8000 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world"
   > run_image.sh && zip -r code-deploy-scripts . -i get_docker_image.sh run_image.sh appspec.yml
 
-- mkdir -p deploy_upload
-- mv code-deploy-scripts.zip deploy_upload/code-deploy-scripts.zip
+- mkdir -p dpl_cd_upload
+- mv code-deploy-scripts.zip dpl_cd_upload/code-deploy-scripts.zip
