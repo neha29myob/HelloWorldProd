@@ -35,7 +35,7 @@ script:
 - $(aws ecr get-login --no-include-email --region ap-southeast-2)
 - docker tag neha-hello-world:latest 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
 - docker push 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
-- zip -r code-deploy-scripts . -i pull_image.sh run_image.sh appspec.yml
+- zip -r code-deploy-scripts . -i pull_image.sh appspec.yml
 - mkdir -p dpl_cd_upload
 - mv code-deploy-scripts.zip dpl_cd_upload/code-deploy-scripts.zip
 
