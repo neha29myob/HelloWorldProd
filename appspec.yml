@@ -1,4 +1,4 @@
-on: 0.0
+version: 0.0
 os: linux
 files:
   - source: ./
@@ -17,4 +17,3 @@ hooks:
     - location: pull_image.sh
       timeout: 300
       runas: root
-
