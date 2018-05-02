@@ -17,3 +17,7 @@ hooks:
     - location: pull_image.sh
       timeout: 300
       runas: root
+ ApplicationStart:
+    - location: run_image.sh
+      timeout: 300
+      runas: root
