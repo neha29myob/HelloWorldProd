@@ -1,0 +1,20 @@
+on: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/ec2-user/hello-world-production
+
+permissions:
+  - object: /home/ec2-user/hello-world-production
+    pattern: "*.sh"
+    owner: ec2-user
+    mode: 777
+    type:
+      - file
+
+hooks:
+  AfterInstall:
+    - location: get_docker_image.sh
+      timeout: 300
+      runas: root
+
