@@ -2,10 +2,10 @@ package HandlersTests;
 
 import Controller.GreetingRepository;
 import Handlers.AddNameHandler;
+import Handlers.UpdateNameHandler;
+import com.sun.net.httpserver.HttpExchange;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.net.httpserver.HttpExchange;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,8 +14,8 @@ import java.io.OutputStream;
 
 import static org.mockito.Mockito.*;
 
-public class AddNameHandlerTest {
-    private AddNameHandler addNameHandler;
+public class UpdateNameHandlerTest {
+    private UpdateNameHandler updateNameHandler;
     private HttpExchange httpExchange;
     private GreetingRepository greetingRepository;
     private OutputStream outputStream;
@@ -25,20 +25,21 @@ public class AddNameHandlerTest {
         greetingRepository = mock(GreetingRepository.class);
         httpExchange = mock(HttpExchange.class);
         outputStream = mock(OutputStream.class);
-        addNameHandler = new AddNameHandler(greetingRepository);
+        updateNameHandler = new UpdateNameHandler(greetingRepository);
     }
 
     @Test
-    public void addHandlerShouldCallAddNameService() throws IOException {
-        String mockedInput = "Mary";
+    public void updateHandlerShouldCallUpdateNameService() throws IOException {
+        String mockedInput = "Mary,Bob";
+
         InputStream inputStream = new ByteArrayInputStream(mockedInput.getBytes());
 
         when(httpExchange.getRequestBody()).thenReturn(inputStream);
-        when(greetingRepository.addName(mockedInput)).thenReturn("Mary added.");
+        when(greetingRepository.updateName("Mary", "Bob")).thenReturn("Mary name updated to Bob.");
         when(httpExchange.getResponseBody()).thenReturn(outputStream);
 
-        addNameHandler.handle(httpExchange);
+        updateNameHandler.handle(httpExchange);
 
-        verify(greetingRepository).addName("Mary");
+        verify(greetingRepository).updateName("Mary","Bob");
     }
 }

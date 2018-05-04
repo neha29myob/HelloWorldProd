@@ -1,11 +1,11 @@
 package HandlersTests;
 
 import Controller.GreetingRepository;
-import Handlers.AddNameHandler;
+import Handlers.GreetingPageHandler;
+import Handlers.RemoveNameHandler;
+import com.sun.net.httpserver.HttpExchange;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.net.httpserver.HttpExchange;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,8 +14,9 @@ import java.io.OutputStream;
 
 import static org.mockito.Mockito.*;
 
-public class AddNameHandlerTest {
-    private AddNameHandler addNameHandler;
+public class GreetingHandlerTest {
+
+    private GreetingPageHandler greetingPageHandler;
     private HttpExchange httpExchange;
     private GreetingRepository greetingRepository;
     private OutputStream outputStream;
@@ -25,20 +26,17 @@ public class AddNameHandlerTest {
         greetingRepository = mock(GreetingRepository.class);
         httpExchange = mock(HttpExchange.class);
         outputStream = mock(OutputStream.class);
-        addNameHandler = new AddNameHandler(greetingRepository);
+        greetingPageHandler = new GreetingPageHandler(greetingRepository);
     }
 
     @Test
-    public void addHandlerShouldCallAddNameService() throws IOException {
-        String mockedInput = "Mary";
-        InputStream inputStream = new ByteArrayInputStream(mockedInput.getBytes());
+    public void greetingHandlerShouldCallGetGreetingService() throws IOException {
 
-        when(httpExchange.getRequestBody()).thenReturn(inputStream);
-        when(greetingRepository.addName(mockedInput)).thenReturn("Mary added.");
+        when(greetingRepository.getGreetingMessage()).thenReturn("Hello Neha.");
         when(httpExchange.getResponseBody()).thenReturn(outputStream);
 
-        addNameHandler.handle(httpExchange);
+        greetingPageHandler.handle(httpExchange);
 
-        verify(greetingRepository).addName("Mary");
+        verify(greetingRepository).getGreetingMessage();
     }
 }
