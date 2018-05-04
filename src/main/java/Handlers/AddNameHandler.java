@@ -19,6 +19,7 @@ public class AddNameHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String name = InputReader.readInput(httpExchange);
         String greetingResponse = greetingRepository.addName(name);
-        ResponseWriter.handleResponse(httpExchange, greetingResponse);
+        ResponseWriter responseWriter = new ResponseWriter();
+        responseWriter.handleResponse(httpExchange, greetingResponse);
     }
 }

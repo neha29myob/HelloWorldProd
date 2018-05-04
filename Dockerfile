@@ -7,6 +7,8 @@ RUN chown -R gradle /hello-world-production
 USER gradle
 
 RUN ./gradlew tasks
+#RUN ./gradlew test
+
 EXPOSE 8000
 
 CMD ["sh", "-c", "./gradlew runJar"]

@@ -32,6 +32,7 @@ deploy:
   region: ap-southeast-2
   on: 
 script:
+- docker run neha-hello-world ./gradlew test
 - $(aws ecr get-login --no-include-email --region ap-southeast-2)
 - docker tag neha-hello-world:latest 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest
 - docker push 451515956712.dkr.ecr.ap-southeast-2.amazonaws.com/neha-hello-world:latest

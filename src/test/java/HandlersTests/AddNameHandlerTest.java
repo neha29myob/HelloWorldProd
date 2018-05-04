@@ -18,6 +18,7 @@ public class AddNameHandlerTest {
     private AddNameHandler addNameHandler;
     private HttpExchange httpExchange;
     private GreetingRepository greetingRepository;
+    //private O
     private OutputStream outputStream;
 
     @Before
@@ -40,5 +41,6 @@ public class AddNameHandlerTest {
         addNameHandler.handle(httpExchange);
 
         verify(greetingRepository).addName("Mary");
+        //verify(outputStream).("Mary");
     }
 }
