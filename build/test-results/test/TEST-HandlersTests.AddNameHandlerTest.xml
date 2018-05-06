@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HandlersTests.AddNameHandlerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-05-04T01:06:13" hostname="C02VM0J6HTD8" time="0.0">
+  <properties/>
+  <testcase name="addHandlerShouldCallAddNameService" classname="HandlersTests.AddNameHandlerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
