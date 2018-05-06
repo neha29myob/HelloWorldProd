@@ -14,7 +14,7 @@ permissions:
 
 hooks:
   AfterInstall:
-    - location: pull_image.sh
+    - location: pull_run_image.sh
       timeout: 300
       runas: root
 # ApplicationStart:
