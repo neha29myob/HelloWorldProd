@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GreetingRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2018-05-04T01:06:13" hostname="C02VM0J6HTD8" time="0.026">
+<testsuite name="GreetingRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2018-05-11T00:41:16" hostname="C02VM0J6HTD8" time="0.025">
   <properties/>
   <testcase name="WhenUpdateNameReturnAppropriateMessages" classname="GreetingRepositoryTest" time="0.004"/>
   <testcase name="WhenAddExistingNameReturnAlreadyExistsMessage" classname="GreetingRepositoryTest" time="0.0"/>
   <testcase name="WhenAddNameReturnUpdatedGreetingMessage" classname="GreetingRepositoryTest" time="0.02"/>
-  <testcase name="WhenDeleteNameReturnAppropriateMessages" classname="GreetingRepositoryTest" time="0.0"/>
-  <testcase name="WhenAddNameReturnNameAddedMessage" classname="GreetingRepositoryTest" time="0.001"/>
+  <testcase name="WhenDeleteNameReturnAppropriateMessages" classname="GreetingRepositoryTest" time="0.001"/>
+  <testcase name="WhenAddNameReturnNameAddedMessage" classname="GreetingRepositoryTest" time="0.0"/>
   <testcase name="getGreetingShouldReturnGreetingMessageWithDefaultName" classname="GreetingRepositoryTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
